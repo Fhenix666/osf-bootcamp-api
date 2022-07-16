@@ -1,0 +1,93 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>92cab8c1-ef8a-4848-b68e-3a61bf441107</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Upload\Bol\**" />
+    <Compile Remove="Upload\Dollars\**" />
+    <Compile Remove="Upload\ExportForm\**" />
+    <Compile Remove="Upload\Purchase\**" />
+    <Content Remove="Upload\Bol\**" />
+    <Content Remove="Upload\Dollars\**" />
+    <Content Remove="Upload\ExportForm\**" />
+    <Content Remove="Upload\Purchase\**" />
+    <EmbeddedResource Remove="Upload\Bol\**" />
+    <EmbeddedResource Remove="Upload\Dollars\**" />
+    <EmbeddedResource Remove="Upload\ExportForm\**" />
+    <EmbeddedResource Remove="Upload\Purchase\**" />
+    <None Remove="Upload\Bol\**" />
+    <None Remove="Upload\Dollars\**" />
+    <None Remove="Upload\ExportForm\**" />
+    <None Remove="Upload\Purchase\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Filters\CustomException.cs" />
+    <Compile Remove="Repository\Task.cs" />
+    <Compile Remove="ViewModels\Input\SaleRequestViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Upload\CreditNoteEvidences\1294720a-26f7-4c68-883c-1f03343b8f3f.jpg" />
+    <None Remove="Upload\CreditNoteEvidences\26fea4b2-269d-47c1-bd3c-09a04138e44e.jpg" />
+    <None Remove="Upload\CreditNoteEvidences\36cb0a65-e00f-4675-b81e-499f49d7103f.jpg" />
+    <None Remove="Upload\CreditNoteEvidences\70dfa500-6186-451a-b084-5b07aee6f264.jpg" />
+    <None Remove="Upload\CreditNoteEvidences\a6658a8b-4f6f-4c72-b215-62daf15795b3.jpg" />
+    <None Remove="Upload\CreditNoteEvidences\c27382d7-ed30-4249-88b5-0f6fb294e442.jpg" />
+    <None Remove="Upload\CreditNotes\0a55e5d2-74c4-433d-aca2-968b73bcf77e.pdf" />
+    <None Remove="Upload\CreditNotes\13c30909-d210-4443-aaaf-2d163f76f8e6.pdf" />
+    <None Remove="Upload\CreditNotes\1b77b03f-48e2-4049-a700-eefb4e6a9e5d.pdf" />
+    <None Remove="Upload\CreditNotes\1fe7b459-f234-499d-8ec7-42f63209610f.pdf" />
+    <None Remove="Upload\CreditNotes\23e1c278-6ab0-49d6-aa6e-f6e89655e251.pdf" />
+    <None Remove="Upload\CreditNotes\396641bc-2f9c-4eab-94f4-6b93fcbd66d8.pdf" />
+    <None Remove="Upload\CreditNotes\49e5d777-50b2-4d41-9108-2358feec0cac.pdf" />
+    <None Remove="Upload\CreditNotes\4b27036f-76d9-475a-b627-34421670eb10.pdf" />
+    <None Remove="Upload\CreditNotes\671ed690-e518-486f-ac82-9565c0b1c9f4.pdf" />
+    <None Remove="Upload\CreditNotes\69ee42f3-d96a-4e0d-8096-0697551a3f38.pdf" />
+    <None Remove="Upload\CreditNotes\7374a40a-a04f-4ff8-b53d-ca70328b7b90.pdf" />
+    <None Remove="Upload\CreditNotes\8436c8ea-e9cc-4e58-a6a2-ac83db8cb313.pdf" />
+    <None Remove="Upload\CreditNotes\8813e6a8-5ce3-4c72-8b8f-9a0dc839a55c.pdf" />
+    <None Remove="Upload\CreditNotes\a8a18667-930d-4201-8d79-08b42652be6f.pdf" />
+    <None Remove="Upload\CreditNotes\aceb47fe-a2e1-4a40-b147-76bc4701f7a5.pdf" />
+    <None Remove="Upload\CreditNotes\afebe6c5-f587-462b-a867-f612a582b518.pdf" />
+    <None Remove="Upload\CreditNotes\b5669264-69a1-485b-86c3-74f6553f40f8.pdf" />
+    <None Remove="Upload\CreditNotes\c7d69720-b5a2-40a7-a29e-4dd66d990700.pdf" />
+    <None Remove="Upload\CreditNotes\c83c2264-ee6c-4fa8-ba0d-97aca01b2f35.pdf" />
+    <None Remove="Upload\Payments\486f54bc-1ca2-44c4-8716-1344821efc8d.jpg" />
+    <None Remove="Upload\Payments\4ed28b73-f5be-4b05-a332-acec18ef3c58.jpg" />
+    <None Remove="Upload\Payments\99f13ea3-8437-479d-bc06-b91eb524167c.jpg" />
+    <None Remove="Upload\Payments\aeb6d040-c770-4ee4-a94e-708cf493365f.jpg" />
+    <None Remove="Upload\Payments\d8f69708-3860-4fd9-8296-6c11ea63f746.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Upload\CreditNoteEvidences\" />
+    <Folder Include="Upload\CreditNotes\" />
+    <Folder Include="Upload\Payments\" />
+    <Folder Include="wwwroot\js\input-mask\" />
+    <Folder Include="wwwroot\js\os\" />
+    <Folder Include="wwwroot\assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="SendGrid" Version="9.25.1" />
+    <PackageReference Include="Swashbuckle" Version="5.6.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.4" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.9" />
+  </ItemGroup>
+    <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

@@ -1,0 +1,150 @@
+@{
+    ViewData["Title"] = "Lista";
+}
+
+<script type="text/template" id="list-user-template">
+    <div class="content-wrapper margin-left-zero">
+        <section class="content-header">
+            <h1>Usuarios</h1>
+            <ol class="breadcrumb">
+                <li><a href="../Home/Index">Inicio</a></li>
+                <li><a href="../User/List">Usuario</a></li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <!--CONTENIDO BUSQUEDA-->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Buscar un usuario</h3>
+
+                    <div class="box-tools pull-right">
+                        <iconaddcomponent moduleIn="user" permissionTypeIn="C"></iconaddcomponent>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Minimizar">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Nombre de usuario</label>
+                                <input type="text" class="form-control" id="name" name="name" v-model="name" placeholder="Escribe un nombre" v-on:keyup.13="getUsers();">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="text" class="form-control" id="phone" name="phone" v-model="phone" data-inputmask='"mask": "(999) 999-9999"' data-mask placeholder="Ingrese un teléfono" v-on:keyup.13="getUsers();">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="businessEmail">Correo interno</label>
+                                <input type="email" class="form-control" id="businessEmail" name="businessEmail" v-model="businessEmail" placeholder="Escribe correo de empresa" v-on:keyup.13="getUsers();">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="button" class="btn btn-secondary" v-on:click="clean();">LIMPIAR</button>
+                    <button type="button" class="btn btn-primary" v-on:click="resetGet();" v-if="!sending">BUSCAR</button>
+                    <div v-if="sending" class="btn btn-secondary"><img src="/img/loader-small.gif" class="center-block" /></div>
+                </div>
+            </div>
+
+            <!--TABLA-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Lista de usuarios</h3>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th>NOMBRE</th>
+                                        <th>APELLIDO PATERNO</th>
+                                        <th>CORREO INTERNO</th>
+                                        <th>TELÉFONO</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr class="table-bg" v-for="user in users">
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.firstLastName}}</td>
+                                        <td>{{user.businessEmail}}</td>
+                                        <td>{{user.phone}}</td>
+                                        <td></td>
+                                        <td class="table-bg container-icons">
+                                            <div class="container-icons-table">
+                                                <a href="#" data-toggle="tooltip" title="Editar" v-on:click="updateUser(user.id)"><iconupdatecomponent moduleIn="user" permissionTypeIn="U"></iconupdatecomponent></a>
+                                                <a href="#" data-toggle="tooltip" title="Eliminar" v-on:click="openConfirmModal(user.id)"><icondeletecomponent moduleIn="user" permissionTypeIn="D"></icondeletecomponent></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row pagination-section">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info info-paginate" id="example2_info" role="status" aria-live="polite">
+                                        Mostrando 1 de {{range}} páginas
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers container-simple_numbers">
+                                        <ul class="pagination">
+                                            <li v-bind:class="prevPageDisabled()">
+                                                <a href="#" v-on:click="prevPage()">
+                                                    Anterior
+                                                </a>
+                                            </li>
+                                            <li class="paginate_button" v-for="n in range" v-bind:class="{active: (n) == currentPage}" v-on:click="setPage(n)">
+                                                <a href="#">{{n}}</a>
+                                            </li>
+                                            <li v-bind:class="nextPageDisabled()">
+                                                <a href="#" v-on:click="nextPage()">
+                                                    Siguiente
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Desea eliminar el registro?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                        <button type="button" class="btn btn-primary" v-on:click="deleteUser();">ACEPTAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<div id="listUser">
+    <list-user></list-user>
+</div>
+
+<script src="~/js/helpers/iconAdd.js"></script>
+<script src="~/js/helpers/iconUpdate.js"></script>
+<script src="~/js/helpers/iconDelete.js"></script>
+<script src="~/js/components/user/list/list.js"></script>

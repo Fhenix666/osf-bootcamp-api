@@ -1,0 +1,121 @@
+@model BootCamp.Adm.ViewModels.Output.UserViewModel
+
+@{ ViewData["Title"] = "Usuario";
+}
+
+<script type="text/template" id="user-template">
+    <div class="content-wrapper margin-left-zero">
+        <section class="content-header">
+            <h1>
+                Editar Usuario
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="../Home/Index">Inicio</a></li>
+                <li><a href="../User/List">Usuario</a></li>
+                <li><a href="JavaScript:void(0);">Editar Usuario</a></li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Ingrese los datos del usuario</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" class="form-control" id="name" name="name" v-model="name" v-validate="'required'" placeholder="Ingrese un nombre">
+                                <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="firstLastName">Apellido Paterno</label>
+                                <input type="text" class="form-control" id="firstLastName" name="firstLastName" v-model="firstLastName" v-validate="'required'" placeholder="Ingrese un apellido">
+                                <span v-show="errors.has('firstLastName')" class="help is-danger">{{ errors.first('firstLastName') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="secondLastName">Apellido Materno</label>
+                                <input type="text" class="form-control" id="secondLastName" name="secondLastName" v-model="secondLastName" v-validate="'required'" placeholder="Ingrese un apellido">
+                                <span v-show="errors.has('secondLastName')" class="help is-danger">{{ errors.first('secondLastName') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="businessEmail">Correo interno</label>
+                                <input type="email" class="form-control" id="businessEmail" name="businessEmail" v-model="businessEmail" v-validate="'required|email'" placeholder="Ingrese un correo">
+                                <span v-show="errors.has('businessEmail')" class="help is-danger">{{ errors.first('businessEmail') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="personalEmail">Correo personal</label>
+                                <input type="email" class="form-control" id="personalEmail" name="personalEmail" v-model="personalEmail" v-validate="'required|email'" placeholder="Ingrese un correo">
+                                <span v-show="errors.has('personalEmail')" class="help is-danger">{{ errors.first('personalEmail') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="text" class="form-control" id="phone" name="phone" v-validate="'required|numeric|min: 10|max: 20'" v-model="phone" placeholder="Ingrese número de teléfono">
+                                <span v-show="errors.has('phone')" class="help is-danger">{{ errors.first('phone') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="userStatusFK">Estatus de Usuario</label>
+                                <select id="userStatusFK" v-model="userStatusFK" v-validate="'required'" name="userStatusFK" class="form-control select2" style="width: 100%;" tabindex="-1">
+                                    <option value='' selected="selected">Seleccionar</option>
+                                    <option v-for="userStatus in usersStatus" v-bind:value="userStatus.id">{{userStatus.name}}</option>
+                                </select>
+                                <span v-show="errors.has('userStatusFK')" class="help is-danger">{{ errors.first('userStatusFK') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="profileFK">Perfil</label>
+                                <select id="profileFK" v-model="profileFK" v-validate="'required'" name="profileFK" class="form-control select2" style="width: 100%;" tabindex="-1">
+                                    <option value='' selected="selected">Seleccionar</option>
+                                    <option v-for="profile in profiles" v-bind:value="profile.id">{{profile.name}}</option>
+                                </select>
+                                <span v-show="errors.has('profileFK')" class="help is-danger">{{ errors.first('profileFK') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="officeFK">Oficina</label>
+                                <select id="officeFK" v-model="officeFK" v-validate="'required'" name="officeFK" class="form-control select2" style="width: 100%;" tabindex="-1">
+                                    <option value='' selected="selected">Seleccionar</option>
+                                    <option v-for="office in offices" v-bind:value="office.id">{{office.businessName}}</option>
+                                </select>
+                                <span v-show="errors.has('officeFK')" class="help is-danger">{{ errors.first('officeFK') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="button" class="btn btn-secondary" v-on:click="back">CANCELAR</button>
+                    <button type="button" class="btn btn-primary" v-on:click="patch" v-if="!sending">
+                        GUARDAR
+                    </button>
+                    <div v-if="sending" class="btn btn-secondary">
+                        <img src="/img/loader-small.gif" class="center-block" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</script>
+
+<div id="updateUser">
+    <update-user v-bind:model='@Newtonsoft.Json.JsonConvert.SerializeObject(Model)'></update-user>
+</div>
+<script src="~/js/components/user/update/update.js"></script>
