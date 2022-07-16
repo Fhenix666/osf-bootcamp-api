@@ -29,4 +29,9 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     {
         return await _context.User.Where(e => e.IsDeleted == false).ToListAsync();
     }
+
+    public override IQueryable<User> Get()
+    {
+        return _context.Set<User>().AsQueryable();
+    }
 }

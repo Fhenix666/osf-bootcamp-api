@@ -13,7 +13,7 @@ namespace BootCamp.Adm.Data
         #region === [ ENTITIES ] ===
        
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserStatus> UserStatus { get; set; }
+        //public virtual DbSet<UserStatus> UserStatus { get; set; }
 
         #endregion
 

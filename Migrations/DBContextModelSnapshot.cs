@@ -76,7 +76,7 @@ namespace BootCamp.Adm.Migrations
 
                     b.HasIndex("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
 
                     b.HasData(
                         new
@@ -128,7 +128,7 @@ namespace BootCamp.Adm.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserStatus");
+                    b.ToTable("UserStatus", (string)null);
                 });
 #pragma warning restore 612, 618
         }

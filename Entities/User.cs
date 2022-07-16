@@ -10,5 +10,7 @@ namespace BootCamp.Adm.Entities
         public string Email { get; set; }
         public bool IsDeleted { get; set; }
 
+        public UserStatus userStatus { get; set; }
+
     }
 }
